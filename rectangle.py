@@ -60,6 +60,6 @@ draw_rectangle(img, pts)
 # Recursively dividing
 divideMiddleRectangle(img, pts)
 
-cv2.imshow("Divided Triangle", img)
+cv2.imshow("Divided Rectangle", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
