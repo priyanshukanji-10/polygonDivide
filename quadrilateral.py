@@ -22,7 +22,7 @@ def color():
 
 
 # Draw filled quadrilateral
-def draw_rectangle(img, pts):
+def draw_quadrilateral(img, pts):
     pts = np.array(pts, np.int32).reshape((-1, 1, 2))
     cv2.fillPoly(img, [pts], color())
     cv2.polylines(img, [pts], isClosed=True, color=(0, 0, 0), thickness=1)
@@ -41,9 +41,9 @@ def is_convex(pts):
     return all(s >= 0 for s in signs) or all(s <= 0 for s in signs)
 
 
-def divideMiddleRectangle(img, pts):
+def divideMiddlequadrilateral(img, pts):
     if area(*pts) <= 2:
-        draw_rectangle(img, pts)
+        draw_quadrilateral(img, pts)
         return
 
     midpoints = []
@@ -55,8 +55,8 @@ def divideMiddleRectangle(img, pts):
     if not is_convex(midpoints):
         return
 
-    draw_rectangle(img, midpoints)
-    divideMiddleRectangle(img, midpoints)
+    draw_quadrilateral(img, midpoints)
+    divideMiddlequadrilateral(img, midpoints)
 
 
 # Create blank image
@@ -69,9 +69,9 @@ while True:
     if area(*pts) > 1e-6 and is_convex(pts):
         break
 
-draw_rectangle(img, pts)
-divideMiddleRectangle(img, pts)
+draw_quadrilateral(img, pts)
+divideMiddlequadrilateral(img, pts)
 
-cv2.imshow("Divided Rectangle (Convex Only)", img)
+cv2.imshow("Divided quadrilateral (Convex Only)", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
