@@ -54,14 +54,16 @@ def is_convex(pts):
 def sort_points(pts):
     cx = sum(p[0] for p in pts) / len(pts)
     cy = sum(p[1] for p in pts) / len(pts)
-    pts.sort(key=lambda p: np.arctan2(p[1] - cy, p[0] - cx))
+    pts.sort(
+        key=lambda p: np.arctan2(p[1] - cy, p[0] - cx)
+    )  # arctan gives angle of vertex fr
     return pts
 
 
 def divideMiddlepentagon(img, pts):
     if area(*pts) <= 2:
         draw_pentagon(img, pts)
-        return
+        return 1
 
     midpoints = []
     for i in range(len(pts)):
@@ -73,7 +75,7 @@ def divideMiddlepentagon(img, pts):
         return
 
     draw_pentagon(img, midpoints)
-    divideMiddlepentagon(img, midpoints)
+    return 1 + divideMiddlepentagon(img, midpoints)
 
 
 # Create blank image
@@ -88,8 +90,9 @@ while True:
         break
 
 draw_pentagon(img, pts)
-divideMiddlepentagon(img, pts)
+iteration = divideMiddlepentagon(img, pts)
 
+print("No of iteration are :" + str(iteration))
 cv2.imshow("Divided pentagon (Convex Only)", img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

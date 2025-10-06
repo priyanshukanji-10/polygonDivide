@@ -36,7 +36,7 @@ def color():
 def divideMiddleTriangle(img, pts):
     if area(*pts) <= 1e-6:
         draw_triangle(img, pts)
-        return
+        return 1
 
     # Midpoints of each side
     m1 = [(pts[0][0] + pts[1][0]) // 2, (pts[0][1] + pts[1][1]) // 2]
@@ -45,14 +45,17 @@ def divideMiddleTriangle(img, pts):
 
     # The central triangle from midpoints
     draw_triangle(img, [m1, m2, m3])
-    divideMiddleTriangle(img, [m1, m2, m3])
+    return 1 + divideMiddleTriangle(img, [m1, m2, m3])
 
 
 # Draw the initial triangle, using a random color
 draw_triangle(img, pts)
 
 # Recursively dividing
-divideMiddleTriangle(img, pts)
+
+iteration = divideMiddleTriangle(img, pts)
+
+print("No of iteration are :" + str(iteration))
 
 cv2.imshow("Divided Triangle", img)
 cv2.waitKey(0)

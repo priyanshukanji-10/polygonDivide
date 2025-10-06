@@ -44,7 +44,7 @@ def is_convex(pts):
 def divideMiddlequadrilateral(img, pts):
     if area(*pts) <= 2:
         draw_quadrilateral(img, pts)
-        return
+        return 1
 
     midpoints = []
     for i in range(len(pts)):
@@ -56,7 +56,7 @@ def divideMiddlequadrilateral(img, pts):
         return
 
     draw_quadrilateral(img, midpoints)
-    divideMiddlequadrilateral(img, midpoints)
+    return 1 + divideMiddlequadrilateral(img, midpoints)
 
 
 # Create blank image
@@ -70,7 +70,10 @@ while True:
         break
 
 draw_quadrilateral(img, pts)
-divideMiddlequadrilateral(img, pts)
+iteration = divideMiddlequadrilateral(img, pts)
+
+print("No of iteration are :" + str(iteration))
+
 
 cv2.imshow("Divided quadrilateral (Convex Only)", img)
 cv2.waitKey(0)
