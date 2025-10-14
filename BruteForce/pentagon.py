@@ -56,7 +56,7 @@ def sort_points(pts):
     cy = sum(p[1] for p in pts) / len(pts)
     pts.sort(
         key=lambda p: np.arctan2(p[1] - cy, p[0] - cx)
-    )  # arctan gives angle of vertex fr
+    )  # arctan gives angle of vertex from x axis
     return pts
 
 

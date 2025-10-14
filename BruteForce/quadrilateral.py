@@ -42,7 +42,7 @@ def is_convex(pts):
 
 
 def divideMiddlequadrilateral(img, pts):
-    if area(*pts) <= 2:
+    if area(*pts) <= 1e-6:
         draw_quadrilateral(img, pts)
         return 1
 
